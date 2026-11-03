@@ -1,0 +1,21 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { getContent } from '../data/profile';
+const { profile, ui } = getContent(Astro.currentLocale);
+---
+<section id="about" class="mx-auto max-w-6xl px-4 py-24">
+  <SectionTitle kicker={ui.kickers.about} title={ui.titles.about} />
+  <div class="grid gap-8 md:grid-cols-2">
+    <div class="reveal comic-panel bg-night p-8">
+      <p class="text-lg leading-relaxed" set:html={profile.about} />
+      <p class="mt-4 text-paper/70">{profile.aboutExtra}</p>
+    </div>
+    <ul class="reveal grid grid-cols-2 gap-4">
+      {profile.interests.map((it, i) => (
+        <li class={`flex items-center justify-center p-6 text-center font-display text-2xl tracking-wide text-ink ${['bg-pink', 'bg-cyan', 'bg-yellow', 'bg-violet text-paper'][i % 4]}`}>
+          {it}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+---
+import SpiderWeb from './SpiderWeb.astro';
+import { getContent } from '../data/profile';
+const { profile, ui } = getContent(Astro.currentLocale);
+---
+<section id="contact" class="relative overflow-hidden px-4 py-32">
+  <SpiderWeb class="contact-web absolute top-1/2 left-1/2 w-[60rem] max-w-none -translate-x-1/2 -translate-y-1/2 text-violet/30" spokes={16} rings={9} seed={3} />
+  <div class="reveal relative mx-auto max-w-3xl text-center">
+    <p class="font-label text-cyan">// {ui.contactKicker}</p>
+    <h2 class="glitch font-display text-6xl tracking-wide md:text-8xl" data-text={ui.talk}>{ui.talk}</h2>
+    <p class="mt-4 text-lg text-paper/80">{ui.contactText}</p>
+    <a href={`mailto:${profile.email}`} class="comic-panel mt-10 inline-block bg-yellow px-8 py-4 font-display text-2xl tracking-wide text-ink transition-transform hover:-translate-y-1">
+      {profile.email}
+    </a>
+    <div class="mt-8 flex justify-center gap-6 font-label">
+      <a href={profile.github} target="_blank" rel="noopener" class="hover:text-pink">GitHub</a>
+      <a href={profile.linkedin} target="_blank" rel="noopener" class="hover:text-cyan">LinkedIn</a>
+    </div>
+  </div>
+  <p class="relative mt-24 text-center font-label text-xs text-paper/40">
+    © {new Date().getFullYear()} {profile.fullName} · {ui.madeWith}
+  </p>
+</section>

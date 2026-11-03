@@ -1,0 +1,61 @@
+---
+// Telaraña orgánica: radios con ángulo y largo irregulares, anillos que cuelgan de forma desigual
+// y algunos hilos rotos. Usa un PRNG con semilla para que cada build dibuje la misma telaraña.
+interface Props { size?: number; spokes?: number; rings?: number; seed?: number; class?: string }
+const { size = 600, spokes = 12, rings = 7, seed = 1, class: cls = '' } = Astro.props;
+
+let s = seed;
+const rand = (a: number, b: number) => {
+  // mulberry32
+  s = (s + 0x6d2b79f5) | 0;
+  let t = Math.imul(s ^ (s >>> 15), 1 | s);
+  t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+  return a + (((t ^ (t >>> 14)) >>> 0) / 4294967296) * (b - a);
+};
+
+const c = size / 2;
+const R = c * 0.98;
+const step = (Math.PI * 2) / spokes;
+const f = (n: number) => n.toFixed(1);
+const pt = (a: number, r: number) => [c + Math.cos(a) * r, c + Math.sin(a) * r];
+
+const angles = Array.from({ length: spokes }, (_, i) => i * step + rand(-0.35, 0.35) * step);
+const lengths = angles.map(() => R * rand(0.7, 1));
+
+const spokePaths = angles.map((a, i) => {
+  const [x, y] = pt(a, lengths[i]);
+  return `M${c},${c} L${f(x)},${f(y)}`;
+});
+
+const ringPaths = Array.from({ length: rings }, (_, k) => {
+  // ±0.3 de un paso mantiene el orden entre anillos sin que se crucen.
+  const radii = angles.map(() => (R * (k + 1 + rand(-0.3, 0.3))) / rings);
+  let d = '';
+  let prev: { a: number; r: number } | null = null;
+  for (let i = 0; i <= spokes; i++) {
+    const j = i % spokes;
+    const a = angles[j] + (i === spokes ? Math.PI * 2 : 0);
+    const r = radii[j];
+    if (r > lengths[j]) { prev = null; continue; } // el radio no llega: hilo cortado
+    const [x, y] = pt(a, r);
+    if (!prev || rand(0, 1) < 0.07) {
+      d += ` M${f(x)},${f(y)}`;
+    } else {
+      const [qx, qy] = pt((prev.a + a) / 2, ((prev.r + r) / 2) * rand(0.78, 0.93));
+      d += ` Q${f(qx)},${f(qy)} ${f(x)},${f(y)}`;
+    }
+    prev = { a, r };
+  }
+  return d.trim();
+}).filter((d) => d.includes('Q'));
+---
+<svg
+  class={`spider-web pointer-events-none ${cls}`}
+  viewBox={`0 0 ${size} ${size}`}
+  fill="none"
+  stroke="currentColor"
+  aria-hidden="true"
+>
+  {spokePaths.map((d) => <path d={d} stroke-width="1.2" />)}
+  {ringPaths.map((d) => <path d={d} stroke-width="1" />)}
+</svg>

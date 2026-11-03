@@ -1,0 +1,22 @@
+---
+import SectionTitle from './SectionTitle.astro';
+import { getContent } from '../data/profile';
+const { experience, ui } = getContent(Astro.currentLocale);
+---
+<section id="experience" class="mx-auto max-w-6xl px-4 py-24">
+  <SectionTitle kicker={ui.kickers.experience} title={ui.titles.experience} />
+  <ol class="relative space-y-10 border-l-2 border-dashed border-pink/60 pl-8">
+    {experience.map((job) => (
+      <li class="reveal relative">
+        <span class="absolute top-2 -left-[2.6rem] size-4 rotate-45 bg-cyan"></span>
+        <p class="font-label text-sm text-yellow">{job.period} · {job.place}</p>
+        <h3 class="font-display text-3xl tracking-wide">
+          {job.role} <span class="text-pink">@ {job.company}</span>
+        </h3>
+        <ul class="mt-3 list-['▸_'] space-y-1 pl-5 text-paper/80 marker:text-cyan">
+          {job.points.map((p) => <li>{p}</li>)}
+        </ul>
+      </li>
+    ))}
+  </ol>
+</section>

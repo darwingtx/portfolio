@@ -1,0 +1,72 @@
+@import 'tailwindcss';
+
+/* Paleta inspirada en el multiverso arácnido: noche violeta, magenta, cian, amarillo y rojo */
+@theme {
+  --color-ink: #0b0614;
+  --color-night: #160b2e;
+  --color-pink: #ff2e88;
+  --color-cyan: #00e5ff;
+  --color-violet: #7b2cff;
+  --color-yellow: #ffe600;
+  --color-red: #ff1f3d;
+  --color-paper: #f6f0e6;
+
+  --font-display: 'Bangers', system-ui, sans-serif;
+  --font-sans: 'Comic Neue', system-ui, sans-serif;
+  --font-label: 'Anton', Impact, sans-serif;
+  --font-hand: 'Permanent Marker', cursive;
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-ink text-paper font-sans antialiased;
+    background-image:
+      radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--color-violet) 35%, transparent), transparent 45%),
+      radial-gradient(circle at 85% 60%, color-mix(in srgb, var(--color-pink) 22%, transparent), transparent 40%);
+    background-attachment: fixed;
+  }
+  ::selection { background: var(--color-pink); color: var(--color-ink); }
+}
+
+@utility halftone {
+  background-image: radial-gradient(currentColor 1.2px, transparent 1.4px);
+  background-size: 9px 9px;
+}
+
+/* Desfase cromático tipo impresión fuera de registro */
+@utility glitch {
+  position: relative;
+  text-shadow: 3px 3px 0 var(--color-pink), -3px -2px 0 var(--color-cyan);
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  &::before { color: var(--color-cyan); clip-path: inset(0 0 60% 0); animation: glitch-slice 3.2s infinite steps(1); }
+  &::after  { color: var(--color-pink); clip-path: inset(55% 0 0 0); animation: glitch-slice 2.6s infinite steps(1) reverse; }
+}
+
+@utility comic-panel {
+  border: 3px solid var(--color-paper);
+  box-shadow: 8px 8px 0 var(--color-pink), 8px 8px 0 3px var(--color-ink);
+}
+
+@utility spray {
+  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--color-pink) 70%, transparent));
+}
+
+/* Las capas solo aparecen durante el "golpe" del glitch */
+@keyframes glitch-slice {
+  0%, 88%, 100% { transform: translate(0); opacity: 0; }
+  90% { transform: translate(-4px, 1px); opacity: 1; }
+  93% { transform: translate(4px, -1px); opacity: 1; }
+  96% { transform: translate(-2px, 2px); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .glitch::before, .glitch::after { animation: none; opacity: 0; }
+}

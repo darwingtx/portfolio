@@ -1,0 +1,39 @@
+---
+import '../styles/global.css';
+import { getContent, getLang } from '../data/profile';
+
+const lang = getLang(Astro.currentLocale);
+const { meta, profile } = getContent(lang);
+const title = meta.title;
+const description = profile.summary;
+const site = Astro.site ?? Astro.url;
+---
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="alternate" hreflang="es" href={new URL('/', site)} />
+    <link rel="alternate" hreflang="en" href={new URL('/en/', site)} />
+    <link rel="alternate" hreflang="x-default" href={new URL('/', site)} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:locale" content={meta.locale} />
+    <meta property="og:image" content={profile.avatar} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Bangers&family=Comic+Neue:wght@400;700&family=Permanent+Marker&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="overflow-x-hidden">
+    <slot />
+    <script>
+      import '../scripts/animations';
+    </script>
+  </body>
+</html>

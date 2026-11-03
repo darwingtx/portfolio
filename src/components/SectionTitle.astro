@@ -1,0 +1,8 @@
+---
+interface Props { kicker: string; title: string }
+const { kicker, title } = Astro.props;
+---
+<header class="reveal mb-12">
+  <p class="font-label text-sm tracking-widest text-cyan uppercase">// {kicker}</p>
+  <h2 class="glitch font-display text-5xl md:text-7xl tracking-wide" data-text={title}>{title}</h2>
+</header>
