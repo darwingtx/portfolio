@@ -55,13 +55,6 @@ const projectsBase = [
     accent: 'cyan',
     sfx: 'SWISH!',
   },
-  {
-    year: '2026',
-    stack: ['Python', 'asyncio', 'WebSockets', 'threading', 'Tkinter'],
-    links: [{ label: 'Repo', href: 'https://github.com/darwingtx/Sopa-de-letras-Paralela' }],
-    accent: 'pink',
-    sfx: 'CLICK!',
-  },
 ] as const;
 
 const skillItems = [
@@ -82,7 +75,7 @@ const es = {
     summary:
       'Estudiante de 9° semestre de Ingeniería Informática en el Politécnico Colombiano Jaime Isaza Cadavid. Construyo backends con TypeScript, Java y Python, automatizo procesos con agentes de IA y despliego LLMs open-source sobre hardware convencional.',
     about:
-      'Estoy en camino de convertirme en <strong class="text-pink">AI Engineer</strong>. Hoy trabajo como backend developer construyendo automatizaciones con agentes de IA, y en el semillero <strong class="text-cyan">SIIC</strong> investigo cómo desplegar LLMs open-source en clústeres de hardware convencional. Me interesa la inferencia distribuida sobre hardware de bajo costo: hacer que modelos grandes corran donde antes no cabían.',
+      'Estoy en camino de convertirme en <strong class="text-pink">AI Engineer</strong>. Hoy trabajo como backend developer haciendo <strong class="text-yellow">Go-to-Market engineering</strong>: construyo <strong class="text-yellow">automatizaciones con agentes de IA</strong> que conectan lanzamientos, operación comercial y comunicaciones entre plataformas. En el semillero <strong class="text-cyan">SIIC</strong> investigo cómo desplegar LLMs open-source en clústeres de hardware convencional. Me interesa la inferencia distribuida sobre hardware de bajo costo: hacer que modelos grandes corran donde antes no cabían.',
     aboutExtra: 'Trabajo a diario en Linux con agentes de código como Claude Code, OpenCode, Codex y herdr. Me apasionan la tecnología, la ciencia y la historia. Medellín, Colombia.',
     interests: ['Inferencia distribuida', 'RAG', 'MLOps', 'Agentes de IA'],
   },
@@ -185,15 +178,6 @@ const es = {
         'Instalador con atajos de teclado y caché de miniaturas, para que la segunda búsqueda sea instantánea.',
       ],
     },
-    {
-      title: 'Sopa de Letras Concurrente', tag: 'Multijugador · Concurrencia',
-      problem: 'Generar un tablero único para cada jugador y atender a varios en tiempo real, sin congelar la interfaz ni corromper los datos compartidos entre hilos.',
-      solution: [
-        'Servidor WebSocket con asyncio y un protocolo JSON propio para iniciar, validar y resolver partidas.',
-        'Tablero de 15×15 generado de forma concurrente: un hilo por palabra, sincronizados con un Lock sobre la matriz compartida, en 8 direcciones.',
-        'Cliente en Tkinter con un hilo de red aparte y una cola de mensajes, para que la UI nunca se bloquee.',
-      ],
-    },
   ],
   softSkills: [
     { title: 'Trabajo en equipo', evidence: 'Coautoría de la investigación del clúster con un compañero y un asesor, repos compartidos y equipos de hackathon.' },
@@ -218,7 +202,7 @@ const en: typeof es = {
     summary:
       'Final-year Computer Engineering student at Politécnico Colombiano Jaime Isaza Cadavid. I build backends with TypeScript, Java and Python, automate processes with AI agents, and deploy open-source LLMs on commodity hardware.',
     about:
-      'I am on my way to becoming an <strong class="text-pink">AI Engineer</strong>. Today I work as a backend developer building automations with AI agents, and at the <strong class="text-cyan">SIIC</strong> research group I study how to deploy open-source LLMs on clusters of commodity hardware. My focus is distributed inference on low-cost hardware: making large models run where they did not fit before.',
+      'I am on my way to becoming an <strong class="text-pink">AI Engineer</strong>. Today I work as a backend developer doing <strong class="text-yellow">Go-to-Market engineering</strong>: I build <strong class="text-yellow">AI agent automations</strong> that connect launches, sales operations and communications across platforms. At the <strong class="text-cyan">SIIC</strong> research group I study how to deploy open-source LLMs on clusters of commodity hardware. My focus is distributed inference on low-cost hardware: making large models run where they did not fit before.',
     aboutExtra: 'I work on Linux every day with coding agents like Claude Code, OpenCode, Codex and herdr. I love technology, science and history. Medellín, Colombia.',
     interests: ['Distributed inference', 'RAG', 'MLOps', 'AI agents'],
   },
@@ -319,15 +303,6 @@ const en: typeof es = {
         'GTK4 gallery with lightweight previews from wallhaven and Bing: only the chosen image is downloaded, already cropped to your resolution.',
         "Applying it delegates to the shell's own script, and matugen regenerates the Material You palette for the terminal, Qt apps and the shell.",
         'Installer with keyboard shortcuts and a thumbnail cache, so the second search is instant.',
-      ],
-    },
-    {
-      title: 'Concurrent Word Search', tag: 'Multiplayer · Concurrency',
-      problem: 'Generate a unique board for each player and serve several players in real time, without freezing the UI or corrupting data shared between threads.',
-      solution: [
-        'WebSocket server with asyncio and a custom JSON protocol to start, validate and solve games.',
-        '15×15 board generated concurrently: one thread per word, synchronized with a Lock on the shared grid, in 8 directions.',
-        'Tkinter client with a separate network thread and a message queue, so the UI never blocks.',
       ],
     },
   ],
