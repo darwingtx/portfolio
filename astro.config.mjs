@@ -1,8 +1,12 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
+// El dominio canónico se inyecta en build time (canonical, hreflang, og:url).
+// GitHub Pages no define SITE_URL y cae al default; el homelab lo pasa como build arg.
+const site = process.env.SITE_URL ?? 'https://darwingtx.github.io';
+
 export default defineConfig({
-  site: 'https://darwingtx.github.io',
+  site,
   i18n: { locales: ['es', 'en'], defaultLocale: 'es' }, // español en /, inglés en /en/
   vite: { plugins: [tailwindcss()] },
 });

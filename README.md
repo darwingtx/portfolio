@@ -20,6 +20,18 @@ npm run build    # static output in dist/
 - `src/scripts/animations.ts`: GSAP animations (respects `prefers-reduced-motion`)
 - `src/styles/global.css`: palette, fonts and comic utilities
 
+## Visual system
+
+- **Spider webs:** three seeded section webs (`Projects`, `Skills`, `Soft skills`) plus one large
+  tensioned web in the hero. Stroke weight scales with the rendered size, the center carries a
+  heavier accumulation of silk, and every web is woven spokes-first, rings-second.
+- **Onomatopoeias:** each project card pops its own `sfx` once on scroll-in (`THWIP!`, `PING!`,
+  `ZAP!`, `BLIP!`, `SWISH!`, `CLICK!`), in the project accent color. Halftone screens are rotated
+  37° per card and the card text settles from a 2 px chromatic offset.
+- **Fonts:** only two Google Fonts — **Bangers** (display, labels and the handwritten name) and
+  **Comic Neue** (body). They load non-blocking via `media="print"` + `onload`, with a `<noscript>`
+  fallback. Reveals use `steps(12)` for an "animated on twos" feel.
+
 ## Docker
 
 ```bash

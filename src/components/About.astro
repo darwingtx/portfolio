@@ -1,11 +1,9 @@
 ---
 import SectionTitle from './SectionTitle.astro';
-import SpiderWeb from './SpiderWeb.astro';
 import { getContent } from '../data/profile';
 const { profile, ui } = getContent(Astro.currentLocale);
 ---
 <section id="about" class="relative mx-auto max-w-6xl px-4 py-24">
-  <SpiderWeb class="section-web absolute -z-10 -top-10 right-0 w-[34rem] max-w-none translate-x-1/2 text-blood/35" seed={11} spokes={11} rings={6} />
   <SectionTitle kicker={ui.kickers.about} title={ui.titles.about} />
   <div class="grid gap-8 md:grid-cols-2">
     <div class="reveal comic-panel bg-[linear-gradient(135deg,var(--color-ink)_35%,var(--color-night))] p-8">

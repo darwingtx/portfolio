@@ -17,8 +17,9 @@
 
   --font-display: 'Bangers', system-ui, sans-serif;
   --font-sans: 'Comic Neue', system-ui, sans-serif;
-  --font-label: 'Anton', Impact, sans-serif;
-  --font-hand: 'Permanent Marker', cursive;
+  /* Solo dos familias: Bangers cubre display, etiquetas y el gesto manuscrito */
+  --font-label: 'Bangers', Impact, sans-serif;
+  --font-hand: 'Bangers', Impact, sans-serif;
 }
 
 @layer base {
@@ -46,6 +47,11 @@
     opacity: 0.35;
   }
   ::selection { background: var(--color-pink); color: var(--color-ink); }
+
+  /* Bangers sustituye a Anton en las etiquetas: necesita más aire entre letras. */
+  .font-label { letter-spacing: 0.08em; }
+  /* ...y a Permanent Marker en el nombre: una inclinación leve conserva el gesto manuscrito. */
+  .font-hand { letter-spacing: 0.03em; rotate: -1.2deg; }
 }
 
 @utility halftone {
@@ -85,7 +91,15 @@
   96% { transform: translate(-2px, 2px); opacity: 1; }
 }
 
+/* Indicador de scroll del hero: bob de 8 px, infinito y sutil */
+@keyframes scroll-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+.scroll-hint { animation: scroll-bob 1.8s ease-in-out infinite; }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .glitch::before, .glitch::after { animation: none; opacity: 0; }
+  .scroll-hint { animation: none; }
 }

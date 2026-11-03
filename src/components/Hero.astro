@@ -4,8 +4,7 @@ import { getContent } from '../data/profile';
 const { profile, ui } = getContent(Astro.currentLocale);
 ---
 <section id="home" class="relative flex min-h-svh items-center overflow-hidden px-4 pt-20">
-  <SpiderWeb class="hero-web absolute -top-40 -right-40 w-[46rem] max-w-none text-blood/45" seed={7} spokes={13} />
-  <SpiderWeb class="hero-web absolute -bottom-52 -left-52 w-[34rem] max-w-none text-steel/40" spokes={10} rings={6} seed={21} />
+  <SpiderWeb class="hero-web absolute -top-40 -right-40 w-[46rem] max-w-none text-blood/55" seed={7} spokes={13} />
   <div class="halftone absolute inset-0 text-steel/10 [mask-image:linear-gradient(to_bottom,black,transparent)]"></div>
 
   <div class="relative mx-auto grid w-full max-w-6xl items-center gap-10 md:grid-cols-[1.2fr_1fr]">
@@ -15,14 +14,14 @@ const { profile, ui } = getContent(Astro.currentLocale);
           <span class="block text-5xl tracking-tight md:text-6xl">{ui.hello}</span>
           <span class="block text-lg md:text-xl">{ui.myNameIs}</span>
         </p>
-        <h1 class="relative mt-3 bg-white px-4 py-5 text-center font-hand text-5xl leading-none text-ink md:text-6xl" aria-label={profile.name}>
+        <h1 class="relative mt-3 w-full max-w-md overflow-hidden bg-white px-4 py-5 text-center font-hand text-5xl leading-none text-ink md:overflow-visible md:text-6xl" aria-label={profile.name}>
           <span aria-hidden="true">
             {profile.name.split(' ').map((word, i) => (
               <>{i > 0 && ' '}<span class="inline-block whitespace-nowrap">{[...word].map((ch) => <span class="name-char inline-block">{ch}</span>)}</span></>
             ))}
           </span>
-          <!-- Lata de spray: la boquilla está en (52,17) px del tamaño mostrado (97x120) -->
-          <img src="/spray-can.webp" alt="" aria-hidden="true" width="97" height="120" class="spray-can pointer-events-none absolute top-0 left-0 z-10 max-w-none opacity-0 drop-shadow-[4px_4px_0_var(--color-ink)]" />
+          <!-- Lata de spray: la boquilla está en (52,17) px del tamaño de referencia (97x120) -->
+          <img src="/spray-can.webp" alt="" aria-hidden="true" class="spray-can pointer-events-none absolute top-0 left-0 z-10 h-auto w-[clamp(64px,18vw,97px)] max-w-none opacity-0 drop-shadow-[4px_4px_0_var(--color-ink)]" />
         </h1>
       </div>
       <p class="hero-item mt-4 inline-block -rotate-1 bg-yellow px-3 py-1 font-display text-2xl tracking-wide text-ink md:text-3xl">
@@ -46,4 +45,10 @@ const { profile, ui } = getContent(Astro.currentLocale);
       <span class="burst absolute -top-8 -right-8 rotate-12 bg-yellow px-3 py-1 font-display text-3xl text-ink">DEPLOY!</span>
     </div>
   </div>
+
+  <!-- Indicador de scroll: pista sutil, oculto en móvil para no estorbar -->
+  <a href="#about" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-label text-xs tracking-[0.35em] text-paper/50 uppercase transition-colors hover:text-yellow sm:flex">
+    SCROLL
+    <span aria-hidden="true" class="scroll-hint text-2xl leading-none tracking-normal">↓</span>
+  </a>
 </section>

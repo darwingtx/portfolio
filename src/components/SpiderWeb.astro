@@ -19,6 +19,10 @@ const step = (Math.PI * 2) / spokes;
 const f = (n: number) => n.toFixed(1);
 const pt = (a: number, r: number) => [c + Math.cos(a) * r, c + Math.sin(a) * r];
 
+// Grosor relativo al tamaño: las telarañas pequeñas necesitan trazos más finos.
+const spokeWidth = size < 400 ? 1.8 : 2.2;
+const ringWidth = size < 400 ? 1.4 : 1.8;
+
 const angles = Array.from({ length: spokes }, (_, i) => i * step + rand(-0.35, 0.35) * step);
 const lengths = angles.map(() => R * rand(0.7, 1));
 
@@ -27,9 +31,8 @@ const spokePaths = angles.map((a, i) => {
   return `M${c},${c} L${f(x)},${f(y)}`;
 });
 
-const ringPaths = Array.from({ length: rings }, (_, k) => {
-  // ±0.3 de un paso mantiene el orden entre anillos sin que se crucen.
-  const radii = angles.map(() => (R * (k + 1 + rand(-0.3, 0.3))) / rings);
+// Un anillo es una curva que pasa por los radios, con radios ligeramente desiguales.
+const buildRing = (radii: number[]) => {
   let d = '';
   let prev: { a: number; r: number } | null = null;
   for (let i = 0; i <= spokes; i++) {
@@ -47,6 +50,18 @@ const ringPaths = Array.from({ length: rings }, (_, k) => {
     prev = { a, r };
   }
   return d.trim();
+};
+
+const ringPaths = Array.from({ length: rings }, (_, k) => {
+  // ±0.3 de un paso mantiene el orden entre anillos sin que se crucen.
+  const radii = angles.map(() => (R * (k + 1 + rand(-0.3, 0.3))) / rings);
+  return buildRing(radii);
+}).filter((d) => d.includes('Q'));
+
+// Seda acumulada en el centro: anillos extra, más gruesos, hasta el 35% del radio total.
+const silkPaths = [0.13, 0.23, 0.33].map((frac) => {
+  const radii = angles.map(() => R * frac * rand(0.94, 1.02));
+  return buildRing(radii);
 }).filter((d) => d.includes('Q'));
 ---
 <svg
@@ -54,8 +69,12 @@ const ringPaths = Array.from({ length: rings }, (_, k) => {
   viewBox={`0 0 ${size} ${size}`}
   fill="none"
   stroke="currentColor"
+  stroke-linecap="round"
   aria-hidden="true"
 >
-  {spokePaths.map((d) => <path d={d} stroke-width="1.2" />)}
-  {ringPaths.map((d) => <path d={d} stroke-width="1" />)}
+  {spokePaths.map((d) => <path class="web-spoke" d={d} stroke-width={spokeWidth} />)}
+  {ringPaths.map((d) => <path class="web-ring" d={d} stroke-width={ringWidth} />)}
+  <g stroke-width="2.6" opacity="1">
+    {silkPaths.map((d) => <path class="web-silk" d={d} />)}
+  </g>
 </svg>

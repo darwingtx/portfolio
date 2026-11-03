@@ -22,18 +22,21 @@ const projectsBase = [
       { label: 'Repos', href: 'https://github.com/SmartPotTech' },
     ],
     accent: 'cyan',
+    sfx: 'THWIP!',
   },
   {
     year: '2026 –',
     stack: ['Docker', 'llama.cpp RPC', 'prima.cpp', 'distributed-llama', 'AnythingLLM', 'RAG'],
     links: [],
     accent: 'violet',
+    sfx: 'PING!',
   },
   {
     year: '2025',
     stack: ['Next.js', 'TypeScript', 'Avalanche', 'Smart Contracts', 'Ethers.js', 'Tailwind CSS'],
     links: [{ label: 'Repo', href: 'https://github.com/darwingtx/SynProof' }],
     accent: 'pink',
+    sfx: 'ZAP!',
   },
   {
     year: '2025',
@@ -43,28 +46,31 @@ const projectsBase = [
       { label: 'App', href: 'https://github.com/darwingtx/LeetCodeStreak-Fronted-Mobile' },
     ],
     accent: 'yellow',
+    sfx: 'BLIP!',
   },
   {
     year: '2026',
     stack: ['Python', 'GTK4', 'Bash', 'ImageMagick', 'matugen', 'Hyprland'],
     links: [{ label: 'Repo', href: 'https://github.com/darwingtx/hypr-wallpaper-picker' }],
     accent: 'cyan',
+    sfx: 'SWISH!',
   },
   {
     year: '2026',
     stack: ['Python', 'asyncio', 'WebSockets', 'threading', 'Tkinter'],
     links: [{ label: 'Repo', href: 'https://github.com/darwingtx/Sopa-de-letras-Paralela' }],
     accent: 'pink',
+    sfx: 'CLICK!',
   },
 ] as const;
 
 const skillItems = [
-  ['TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'MicroPython'],
-  ['Claude Code', 'OpenCode', 'Codex', 'herdr', 'n8n', 'MCP', 'AnythingLLM', 'Open-source LLMs', 'RAG'],
-  ['Node.js', 'NestJS', 'Spring Boot', 'FastAPI', 'Firebase', 'REST', 'JWT'],
-  ['React', 'Tailwind CSS', 'Astro'],
-  ['Linux', 'Docker', 'AWS', 'Google Cloud'],
-  ['PostgreSQL', 'MongoDB', 'MariaDB', 'Oracle', 'Firestore'],
+  ['TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'MicroPython', 'Bash'],
+  ['Claude Code', 'OpenCode', 'Codex', 'MCP', 'n8n', 'AnythingLLM', 'RAG', 'Open-source LLMs', 'llama.cpp RPC', 'prima.cpp'],
+  ['NestJS', 'Spring Boot', 'FastAPI', 'Node.js', 'REST', 'GraphQL', 'JWT', 'MQTT'],
+  ['React', 'React Native', 'Astro', 'Tailwind CSS', 'GTK4'],
+  ['Linux', 'Docker', 'Kubernetes', 'AWS', 'Google Cloud', 'Cloudflare Tunnel'],
+  ['PostgreSQL', 'MongoDB', 'MariaDB', 'Oracle', 'Prisma', 'Firestore'],
 ];
 
 const es = {
@@ -76,19 +82,19 @@ const es = {
     summary:
       'Estudiante de 9° semestre de Ingeniería Informática en el Politécnico Colombiano Jaime Isaza Cadavid. Construyo backends con TypeScript, Java y Python, automatizo procesos con agentes de IA y despliego LLMs open-source sobre hardware convencional.',
     about:
-      'Estoy en camino de convertirme en <strong class="text-pink">AI Engineer</strong>. Hoy trabajo como backend developer construyendo automatizaciones con agentes de IA, y en el semillero <strong class="text-cyan">SIIC</strong> investigo cómo desplegar LLMs open-source en clústeres de hardware convencional.',
+      'Estoy en camino de convertirme en <strong class="text-pink">AI Engineer</strong>. Hoy trabajo como backend developer construyendo automatizaciones con agentes de IA, y en el semillero <strong class="text-cyan">SIIC</strong> investigo cómo desplegar LLMs open-source en clústeres de hardware convencional. Me interesa la inferencia distribuida sobre hardware de bajo costo: hacer que modelos grandes corran donde antes no cabían.',
     aboutExtra: 'Trabajo a diario en Linux con agentes de código como Claude Code, OpenCode, Codex y herdr. Me apasionan la tecnología, la ciencia y la historia. Medellín, Colombia.',
     interests: ['Inferencia distribuida', 'RAG', 'MLOps', 'Agentes de IA'],
   },
   ui: {
-    nav: ['Sobre mí', 'Experiencia', 'Proyectos', 'Skills', 'Contacto'],
+    nav: ['Sobre mí', 'Experiencia', 'Proyectos', 'Skills', 'Habilidades blandas', 'Contacto'],
     talk: 'Hablemos',
     hello: 'Hola',
     myNameIs: 'mi nombre es',
     seeProjects: 'Ver proyectos',
     photoAlt: `Foto de ${me.name}`,
-    kickers: { about: 'origen', experience: 'línea temporal', projects: 'multiverso de proyectos', skills: 'poderes' },
-    titles: { about: 'Sobre mí', experience: 'Experiencia', projects: 'Proyectos', skills: 'Skills' },
+    kickers: { about: 'origen', experience: 'línea temporal', projects: 'multiverso de proyectos', skills: 'poderes', soft: 'más allá del código' },
+    titles: { about: 'Sobre mí', experience: 'Experiencia', projects: 'Proyectos', skills: 'Skills', soft: 'Habilidades blandas' },
     problem: 'El problema',
     solution: 'La solución',
     present: 'hoy',
@@ -144,11 +150,12 @@ const es = {
     },
     {
       title: 'Clúster LLM Universitario', tag: 'Investigación · Semillero SIIC',
-      problem: 'Correr LLMs grandes exige GPUs que una universidad pública no tiene, y mandar los datos a APIs externas compromete su soberanía.',
+      problem: 'Correr modelos grandes exige GPUs que una universidad pública no tiene, y mandar los datos a APIs externas cede soberanía sobre la información.',
       solution: [
-        'Un clúster con los PCs de laboratorio que ya existen, en red convencional, que reparte el modelo entre nodos con llama.cpp RPC, distributed-llama y prima.cpp sobre Docker.',
-        'AnythingLLM como capa de aplicación: RAG y multiusuario, sin que los datos salgan del campus.',
-        'Medición de tokens/s, TFLOPS efectivos y energía, comparando frameworks en hardware idéntico, sobre una revisión de más de 35 papers (2023–2026).',
+        'Clúster armado con los PCs de laboratorio existentes sobre la red convencional del campus, repartiendo el modelo entre nodos con llama.cpp RPC, distributed-llama y prima.cpp sobre Docker.',
+        'Comparación de los tres frameworks sobre hardware idéntico con red conmutable 1GbE / 2.5G / Wi-Fi: Qwen3-30B-A3B como carga principal y un 70B en Q4 como prueba de habilitación, porque no cabe en un solo nodo.',
+        'Medición de tokens/s, TTFT, TFLOPS efectivos y energía, con matriz experimental y repeticiones, sobre una revisión de más de 35 papers verificados (2023–2026).',
+        'Hallazgo: el paralelismo de pipeline reduce tokens/s por la latencia de red, así que el valor del clúster no es acelerar sino habilitar modelos que no caben en un nodo y medir ese trade-off.',
       ],
     },
     {
@@ -188,6 +195,17 @@ const es = {
       ],
     },
   ],
+  softSkills: [
+    { title: 'Trabajo en equipo', evidence: 'Coautoría de la investigación del clúster con un compañero y un asesor, repos compartidos y equipos de hackathon.' },
+    { title: 'Rigor y perseverancia', evidence: 'La hipótesis inicial del clúster no se sostuvo con los datos preliminares y el proyecto se reformuló en vez de abandonarse.' },
+    { title: 'Aprendizaje autónomo', evidence: 'Adoptó agentes de código y despliegue de LLMs open-source sin formación formal, guiándose por documentación y experimentos propios.' },
+    { title: 'Comunicación técnica', evidence: 'FTG, estado del arte e informe ejecutivo del proyecto, más la defensa del MVP ante un jurado en 48 horas.' },
+    { title: 'Autonomía y ownership', evidence: 'Homelab en producción, portafolio y herramientas open-source llevadas de cero a funcionando sin equipo detrás.' },
+    { title: 'Resolución bajo presión', evidence: 'Hackathon resuelta en 48 horas y diagnóstico de fallos reales en servicios que usa a diario.' },
+    { title: 'Pensamiento crítico', evidence: 'Compara frameworks con mediciones propias y verifica afirmaciones contra papers en lugar de aceptar la primera respuesta.' },
+    { title: 'Gestión de prioridades', evidence: 'Trabajo, semestre y proyecto de investigación avanzando en paralelo.' },
+    { title: 'Mentalidad de producto', evidence: 'Piensa en quien usa la herramienta: alertas por Telegram en la PWA, portafolio bilingüe, utilidades que resuelven su propio flujo.' },
+  ],
   skillGroups: ['Lenguajes', 'IA y automatización', 'Backend', 'Frontend', 'Cloud e infra', 'Bases de datos'],
 };
 
@@ -200,19 +218,19 @@ const en: typeof es = {
     summary:
       'Final-year Computer Engineering student at Politécnico Colombiano Jaime Isaza Cadavid. I build backends with TypeScript, Java and Python, automate processes with AI agents, and deploy open-source LLMs on commodity hardware.',
     about:
-      'I am on my way to becoming an <strong class="text-pink">AI Engineer</strong>. Today I work as a backend developer building automations with AI agents, and at the <strong class="text-cyan">SIIC</strong> research group I study how to deploy open-source LLMs on clusters of commodity hardware.',
+      'I am on my way to becoming an <strong class="text-pink">AI Engineer</strong>. Today I work as a backend developer building automations with AI agents, and at the <strong class="text-cyan">SIIC</strong> research group I study how to deploy open-source LLMs on clusters of commodity hardware. My focus is distributed inference on low-cost hardware: making large models run where they did not fit before.',
     aboutExtra: 'I work on Linux every day with coding agents like Claude Code, OpenCode, Codex and herdr. I love technology, science and history. Medellín, Colombia.',
     interests: ['Distributed inference', 'RAG', 'MLOps', 'AI agents'],
   },
   ui: {
-    nav: ['About', 'Experience', 'Projects', 'Skills', 'Contact'],
+    nav: ['About', 'Experience', 'Projects', 'Skills', 'Soft skills', 'Contact'],
     talk: "Let's talk",
     hello: 'Hello',
     myNameIs: 'my name is',
     seeProjects: 'See projects',
     photoAlt: `Photo of ${me.name}`,
-    kickers: { about: 'origin story', experience: 'timeline', projects: 'project multiverse', skills: 'powers' },
-    titles: { about: 'About me', experience: 'Experience', projects: 'Projects', skills: 'Skills' },
+    kickers: { about: 'origin story', experience: 'timeline', projects: 'project multiverse', skills: 'powers', soft: 'beyond code' },
+    titles: { about: 'About me', experience: 'Experience', projects: 'Projects', skills: 'Skills', soft: 'Soft skills' },
     problem: 'The problem',
     solution: 'The solution',
     present: 'now',
@@ -268,11 +286,12 @@ const en: typeof es = {
     },
     {
       title: 'University LLM Cluster', tag: 'Research · SIIC group',
-      problem: 'Running large LLMs requires GPUs a public university does not have, and sending data to external APIs gives up data sovereignty.',
+      problem: 'Running large models requires GPUs a public university does not have, and sending data to external APIs gives up sovereignty over that information.',
       solution: [
-        'A cluster built from existing lab PCs on a regular network, splitting the model across nodes with llama.cpp RPC, distributed-llama and prima.cpp on Docker.',
-        'AnythingLLM as the application layer: RAG and multi-user, with data that never leaves campus.',
-        'Measuring tokens/s, effective TFLOPS and energy, comparing frameworks on identical hardware, backed by a review of 35+ papers (2023–2026).',
+        'A cluster assembled from existing lab PCs on the campus’s regular network, splitting the model across nodes with llama.cpp RPC, distributed-llama and prima.cpp on Docker.',
+        'A comparison of the three frameworks on identical hardware with a switchable 1GbE / 2.5G / Wi-Fi network: Qwen3-30B-A3B as the main workload and a 70B in Q4 as an enablement test, because it does not fit on a single node.',
+        'Measurement of tokens/s, TTFT, effective TFLOPS and energy, with an experimental matrix and repetitions, grounded in a review of 35+ verified papers (2023–2026).',
+        'Finding: pipeline parallelism lowers tokens/s because of network latency, so the value of the cluster is not speed but enabling models that do not fit on one node and measuring that trade-off.',
       ],
     },
     {
@@ -311,6 +330,17 @@ const en: typeof es = {
         'Tkinter client with a separate network thread and a message queue, so the UI never blocks.',
       ],
     },
+  ],
+  softSkills: [
+    { title: 'Teamwork', evidence: 'Co-authored the cluster research with a teammate and an advisor, shared repos and hackathon teams.' },
+    { title: 'Rigor and perseverance', evidence: 'The cluster’s initial hypothesis did not hold up against preliminary data, so the project was reframed instead of abandoned.' },
+    { title: 'Self-directed learning', evidence: 'Picked up coding agents and open-source LLM deployment without formal training, guided by documentation and his own experiments.' },
+    { title: 'Technical communication', evidence: 'Project FTG, state of the art and executive report, plus defending the MVP before a jury in 48 hours.' },
+    { title: 'Autonomy and ownership', evidence: 'A homelab in production, a portfolio and open-source tools taken from zero to working with no team behind them.' },
+    { title: 'Problem solving under pressure', evidence: 'A hackathon finished in 48 hours and real failures diagnosed in the services he uses every day.' },
+    { title: 'Critical thinking', evidence: 'Compares frameworks with his own measurements and checks claims against papers instead of accepting the first answer.' },
+    { title: 'Prioritization', evidence: 'Work, coursework and the research project moving forward in parallel.' },
+    { title: 'Product mindset', evidence: 'Thinks about the person using the tool: Telegram alerts in the PWA, a bilingual portfolio, utilities that solve his own workflow.' },
   ],
   skillGroups: ['Languages', 'AI & automation', 'Backend', 'Frontend', 'Cloud & infra', 'Databases'],
 };
