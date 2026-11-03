@@ -1,8 +1,10 @@
 ---
 // Telaraña orgánica: radios con ángulo y largo irregulares, anillos que cuelgan de forma desigual
 // y algunos hilos rotos. Usa un PRNG con semilla para que cada build dibuje la misma telaraña.
-interface Props { size?: number; spokes?: number; rings?: number; seed?: number; class?: string }
-const { size = 600, spokes = 12, rings = 7, seed = 1, class: cls = '' } = Astro.props;
+// Con `perfect` sale simétrica: radios equidistantes, anillos regulares y sin hilos rotos.
+interface Props { size?: number; spokes?: number; rings?: number; seed?: number; perfect?: boolean; class?: string }
+const { size = 600, spokes = 12, rings = 7, seed = 1, perfect = false, class: cls = '' } = Astro.props;
+const J = perfect ? 0 : 1; // intensidad del desorden
 
 let s = seed;
 const rand = (a: number, b: number) => {
@@ -23,8 +25,8 @@ const pt = (a: number, r: number) => [c + Math.cos(a) * r, c + Math.sin(a) * r];
 const spokeWidth = size < 400 ? 1.8 : 2.2;
 const ringWidth = size < 400 ? 1.4 : 1.8;
 
-const angles = Array.from({ length: spokes }, (_, i) => i * step + rand(-0.35, 0.35) * step);
-const lengths = angles.map(() => R * rand(0.7, 1));
+const angles = Array.from({ length: spokes }, (_, i) => i * step + J * rand(-0.35, 0.35) * step);
+const lengths = angles.map(() => (perfect ? R : R * rand(0.7, 1)));
 
 const spokePaths = angles.map((a, i) => {
   const [x, y] = pt(a, lengths[i]);
@@ -41,10 +43,12 @@ const buildRing = (radii: number[]) => {
     const r = radii[j];
     if (r > lengths[j]) { prev = null; continue; } // el radio no llega: hilo cortado
     const [x, y] = pt(a, r);
-    if (!prev || rand(0, 1) < 0.07) {
+    if (!prev || (!perfect && rand(0, 1) < 0.07)) {
       d += ` M${f(x)},${f(y)}`;
     } else {
-      const [qx, qy] = pt((prev.a + a) / 2, ((prev.r + r) / 2) * rand(0.78, 0.93));
+      // La comba depende del hueco entre radios: si están muy juntos, una comba fuerte hace un gancho.
+      const gap = Math.min(1, (a - prev.a) / step);
+      const [qx, qy] = pt((prev.a + a) / 2, ((prev.r + r) / 2) * (1 - (1 - (perfect ? 0.86 : rand(0.78, 0.93))) * gap));
       d += ` Q${f(qx)},${f(qy)} ${f(x)},${f(y)}`;
     }
     prev = { a, r };
@@ -54,15 +58,10 @@ const buildRing = (radii: number[]) => {
 
 const ringPaths = Array.from({ length: rings }, (_, k) => {
   // ±0.3 de un paso mantiene el orden entre anillos sin que se crucen.
-  const radii = angles.map(() => (R * (k + 1 + rand(-0.3, 0.3))) / rings);
+  const radii = angles.map(() => (R * (k + 1 + J * rand(-0.3, 0.3))) / rings);
   return buildRing(radii);
 }).filter((d) => d.includes('Q'));
 
-// Seda acumulada en el centro: anillos extra, más gruesos, hasta el 35% del radio total.
-const silkPaths = [0.13, 0.23, 0.33].map((frac) => {
-  const radii = angles.map(() => R * frac * rand(0.94, 1.02));
-  return buildRing(radii);
-}).filter((d) => d.includes('Q'));
 ---
 <svg
   class={`spider-web pointer-events-none ${cls}`}
@@ -74,7 +73,4 @@ const silkPaths = [0.13, 0.23, 0.33].map((frac) => {
 >
   {spokePaths.map((d) => <path class="web-spoke" d={d} stroke-width={spokeWidth} />)}
   {ringPaths.map((d) => <path class="web-ring" d={d} stroke-width={ringWidth} />)}
-  <g stroke-width="2.6" opacity="1">
-    {silkPaths.map((d) => <path class="web-silk" d={d} />)}
-  </g>
 </svg>

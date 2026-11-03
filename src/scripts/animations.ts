@@ -90,14 +90,13 @@ function sprayName() {
   });
 }
 
-// Tejido de una telaraña: primero los radios, luego los anillos y al final la seda del centro.
+// Tejido de una telaraña: primero los radios y luego los anillos.
 // Cada hilo tarda un poco distinto para que el tejido no se sienta mecánico.
 function weaveWeb(web: Element, config: gsap.TimelineVars = {}) {
   const spokes = gsap.utils.toArray<SVGPathElement>(web.querySelectorAll('.web-spoke'));
   const rings = gsap.utils.toArray<SVGPathElement>(web.querySelectorAll('.web-ring'));
-  const silk = gsap.utils.toArray<SVGPathElement>(web.querySelectorAll('.web-silk'));
 
-  [...spokes, ...rings, ...silk].forEach((path) => {
+  [...spokes, ...rings].forEach((path) => {
     const len = path.getTotalLength();
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
   });
@@ -107,29 +106,19 @@ function weaveWeb(web: Element, config: gsap.TimelineVars = {}) {
   spokes.forEach((path, i) => {
     tl.to(path, {
       strokeDashoffset: 0,
-      duration: gsap.utils.random(0.9, 1.8),
+      duration: gsap.utils.random(0.35, 0.7),
       ease: 'power4.out',
-    }, i * 0.06);
+    }, i * 0.025);
   });
 
   // Los anillos arrancan cuando los radios ya están casi tensos.
-  const ringStart = Math.max(0, tl.duration() - 0.25);
+  const ringStart = Math.max(0, tl.duration() - 0.15);
   rings.forEach((path, i) => {
     tl.to(path, {
       strokeDashoffset: 0,
-      duration: gsap.utils.random(0.9, 1.8),
+      duration: gsap.utils.random(0.35, 0.7),
       ease: 'power4.out',
-    }, ringStart + i * 0.05);
-  });
-
-  // La seda acumulada en el centro aparece al final, como el último depósito.
-  const silkStart = Math.max(0, tl.duration() - 0.2);
-  silk.forEach((path, i) => {
-    tl.to(path, {
-      strokeDashoffset: 0,
-      duration: gsap.utils.random(0.6, 1.1),
-      ease: 'power4.out',
-    }, silkStart + i * 0.08);
+    }, ringStart + i * 0.02);
   });
 
   return tl;

@@ -4,6 +4,8 @@ import { getContent } from '../data/profile';
 const { profile, ui } = getContent(Astro.currentLocale);
 ---
 <section id="home" class="relative flex min-h-svh items-center overflow-hidden px-4 pt-20">
+  <SpiderWeb class="hero-web absolute -bottom-40 -left-40 w-[26rem] max-w-none text-steel/45" seed={21} spokes={10} rings={6} />
+  <SpiderWeb class="hero-web absolute top-24 left-[38%] hidden w-36 max-w-none text-blood/30 md:block" size={300} seed={88} spokes={8} rings={4} />
   <SpiderWeb class="hero-web absolute -top-40 -right-40 w-[46rem] max-w-none text-blood/55" seed={7} spokes={13} />
   <div class="halftone absolute inset-0 text-steel/10 [mask-image:linear-gradient(to_bottom,black,transparent)]"></div>
 
