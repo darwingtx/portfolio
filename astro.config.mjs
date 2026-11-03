@@ -8,5 +8,7 @@ const site = process.env.SITE_URL || 'https://darwingtx.github.io';
 export default defineConfig({
   site,
   i18n: { locales: ['es', 'en'], defaultLocale: 'es' }, // español en /, inglés en /en/
+  // Dominio fijo de ngrok: Vite bloquea los Host desconocidos en dev y preview.
+  server: { allowedHosts: ['patient-kit-safely.ngrok-free.app'] },
   vite: { plugins: [tailwindcss()] },
 });
