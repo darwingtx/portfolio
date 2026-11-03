@@ -1,9 +1,11 @@
 ---
 import SectionTitle from './SectionTitle.astro';
+import SpiderWeb from './SpiderWeb.astro';
 import { getContent } from '../data/profile';
 const { experience, ui } = getContent(Astro.currentLocale);
 ---
-<section id="experience" class="mx-auto max-w-6xl px-4 py-24">
+<section id="experience" class="relative mx-auto max-w-6xl px-4 py-24">
+  <SpiderWeb class="section-web absolute -z-10 top-1/4 left-0 w-[40rem] max-w-none -translate-x-1/2 text-steel/45" seed={5} spokes={14} rings={8} />
   <SectionTitle kicker={ui.kickers.experience} title={ui.titles.experience} />
   <ol class="relative space-y-10 border-l-2 border-dashed border-pink/60 pl-8">
     {experience.map((job) => (

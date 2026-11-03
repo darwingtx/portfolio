@@ -9,7 +9,7 @@ const mm = gsap.matchMedia();
 // y la letra aparece borrosa y se enfoca, como pintura recién aplicada.
 function sprayName() {
   const chars = gsap.utils.toArray<HTMLElement>('.name-char');
-  const can = document.querySelector<SVGElement>('.spray-can');
+  const can = document.querySelector<HTMLImageElement>('.spray-can');
   const host = can?.parentElement;
   if (!chars.length || !can || !host) return;
 
@@ -18,8 +18,8 @@ function sprayName() {
   const shown = 'inset(-30% -10% -30% -10%)';
   gsap.set(chars, { clipPath: hidden, filter: 'blur(6px)' });
 
-  const NOZZLE = { x: 1, y: 6 }; // boquilla dentro del svg
-  const AIM = { x: 12, y: -16 }; // el bote pinta a distancia, arriba a la derecha del trazo
+  const NOZZLE = { x: 52, y: 17 }; // boquilla dentro de la imagen (97x120)
+  const AIM = { x: -30, y: 6 }; // la lata rocía hacia arriba a la derecha: se coloca abajo a la izquierda del trazo
 
   // Gotas de pintura que salen de la boquilla y se dispersan sobre la letra.
   const spray = (from: { x: number; y: number }, el: HTMLElement) => {
@@ -74,16 +74,20 @@ function sprayName() {
 // Sin animaciones si el usuario pidió movimiento reducido: el contenido ya es visible por defecto.
 mm.add('(prefers-reduced-motion: no-preference)', () => {
   // 1. Telarañas que se "tejen": cada hilo se dibuja con stroke-dashoffset.
-  document.querySelectorAll<SVGPathElement>('.hero-web path, .contact-web path').forEach((path) => {
+  document.querySelectorAll<SVGPathElement>('.spider-web path').forEach((path) => {
     const len = path.getTotalLength();
     gsap.set(path, { strokeDasharray: len, strokeDashoffset: len });
   });
   gsap.to('.hero-web path', { strokeDashoffset: 0, duration: 1.6, ease: 'power2.out', stagger: 0.04 });
-  gsap.to('.contact-web path', {
-    strokeDashoffset: 0,
-    duration: 1.2,
-    stagger: 0.03,
-    scrollTrigger: { trigger: '#contact', start: 'top 70%' },
+  // El resto de telarañas se tejen al entrar en pantalla.
+  gsap.utils.toArray<SVGSVGElement>('.spider-web:not(.hero-web)').forEach((web) => {
+    gsap.to(web.querySelectorAll('path'), {
+      strokeDashoffset: 0,
+      duration: 1.2,
+      stagger: 0.03,
+      ease: 'power2.out',
+      scrollTrigger: { trigger: web, start: 'top 85%' },
+    });
   });
 
   // 2. Entrada del hero estilo cómic: golpe + leve rotación.

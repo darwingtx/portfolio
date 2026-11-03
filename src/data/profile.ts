@@ -60,10 +60,10 @@ const projectsBase = [
 
 const skillItems = [
   ['TypeScript', 'JavaScript', 'Java', 'Python', 'SQL', 'MicroPython'],
-  ['n8n', 'Claude Code', 'MCP', 'AnythingLLM', 'Open-source LLMs', 'RAG'],
+  ['Claude Code', 'OpenCode', 'Codex', 'herdr', 'n8n', 'MCP', 'AnythingLLM', 'Open-source LLMs', 'RAG'],
   ['Node.js', 'NestJS', 'Spring Boot', 'FastAPI', 'Firebase', 'REST', 'JWT'],
   ['React', 'Tailwind CSS', 'Astro'],
-  ['Docker', 'Linux', 'AWS', 'Google Cloud'],
+  ['Linux', 'Docker', 'AWS', 'Google Cloud'],
   ['PostgreSQL', 'MongoDB', 'MariaDB', 'Oracle', 'Firestore'],
 ];
 
@@ -77,7 +77,7 @@ const es = {
       'Estudiante de 9° semestre de Ingeniería Informática en el Politécnico Colombiano Jaime Isaza Cadavid. Construyo backends con TypeScript, Java y Python, automatizo procesos con agentes de IA y despliego LLMs open-source sobre hardware convencional.',
     about:
       'Estoy en camino de convertirme en <strong class="text-pink">AI Engineer</strong>. Hoy trabajo como backend developer construyendo automatizaciones con agentes de IA, y en el semillero <strong class="text-cyan">SIIC</strong> investigo cómo desplegar LLMs open-source en clústeres de hardware convencional.',
-    aboutExtra: 'Me apasionan la tecnología, la ciencia y la historia. Medellín, Colombia.',
+    aboutExtra: 'Trabajo a diario en Linux con agentes de código como Claude Code, OpenCode, Codex y herdr. Me apasionan la tecnología, la ciencia y la historia. Medellín, Colombia.',
     interests: ['Inferencia distribuida', 'RAG', 'MLOps', 'Agentes de IA'],
   },
   ui: {
@@ -95,7 +95,7 @@ const es = {
     contactKicker: '¿construimos algo?',
     contactText: 'Abierto a proyectos de backend, automatización e IA.',
     madeWith: 'Hecho con Astro, Tailwind y GSAP',
-    switchLabel: 'EN',
+    switchLabel: '🇺🇸',
     switchTitle: 'Read in English',
   },
   experience: [
@@ -201,7 +201,7 @@ const en: typeof es = {
       'Final-year Computer Engineering student at Politécnico Colombiano Jaime Isaza Cadavid. I build backends with TypeScript, Java and Python, automate processes with AI agents, and deploy open-source LLMs on commodity hardware.',
     about:
       'I am on my way to becoming an <strong class="text-pink">AI Engineer</strong>. Today I work as a backend developer building automations with AI agents, and at the <strong class="text-cyan">SIIC</strong> research group I study how to deploy open-source LLMs on clusters of commodity hardware.',
-    aboutExtra: 'I love technology, science and history. Medellín, Colombia.',
+    aboutExtra: 'I work on Linux every day with coding agents like Claude Code, OpenCode, Codex and herdr. I love technology, science and history. Medellín, Colombia.',
     interests: ['Distributed inference', 'RAG', 'MLOps', 'AI agents'],
   },
   ui: {
@@ -219,7 +219,7 @@ const en: typeof es = {
     contactKicker: 'shall we build something?',
     contactText: 'Open to backend, automation and AI projects.',
     madeWith: 'Built with Astro, Tailwind and GSAP',
-    switchLabel: 'ES',
+    switchLabel: '🇨🇴',
     switchTitle: 'Leer en español',
   },
   experience: [

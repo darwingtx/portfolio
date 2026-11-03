@@ -19,3 +19,12 @@ npm run build    # static output in dist/
 - `src/components/`: one component per section, plus `SpiderWeb.astro` (seeded, asymmetric web generator)
 - `src/scripts/animations.ts`: GSAP animations (respects `prefers-reduced-motion`)
 - `src/styles/global.css`: palette, fonts and comic utilities
+
+## Docker
+
+```bash
+docker build -t portfolio .
+docker run --rm -p 8080:80 portfolio   # http://localhost:8080
+```
+
+Multi-stage image: Node builds the static site, nginx serves `dist/` (no Node at runtime).

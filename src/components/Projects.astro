@@ -1,5 +1,6 @@
 ---
 import SectionTitle from './SectionTitle.astro';
+import SpiderWeb from './SpiderWeb.astro';
 import { getContent } from '../data/profile';
 const { projects, ui } = getContent(Astro.currentLocale);
 
@@ -11,13 +12,15 @@ const accents = {
   yellow: { shadow: 'shadow-[10px_10px_0_var(--color-yellow)]', text: 'text-yellow', bg: 'bg-yellow' },
 };
 ---
-<section id="projects" class="mx-auto max-w-6xl px-4 py-24">
+<section id="projects" class="relative mx-auto max-w-6xl px-4 py-24">
+  <SpiderWeb class="section-web absolute -z-10 top-0 right-0 w-[38rem] max-w-none translate-x-1/2 text-crimson/70" seed={42} spokes={12} rings={7} />
+  <SpiderWeb class="section-web absolute -z-10 bottom-40 left-0 w-[36rem] max-w-none -translate-x-1/2 text-steel/40" seed={17} spokes={10} rings={7} />
   <SectionTitle kicker={ui.kickers.projects} title={ui.titles.projects} />
   <div class="space-y-14">
     {projects.map((p, i) => {
       const a = accents[p.accent];
       return (
-        <article class={`project-card relative grid border-3 border-paper bg-night md:grid-cols-[1fr_1.4fr] ${a.shadow}`}>
+        <article class={`project-card relative grid border-3 border-paper bg-[linear-gradient(135deg,var(--color-ink)_35%,var(--color-night))] md:grid-cols-[1fr_1.4fr] ${a.shadow}`}>
           <div class="halftone pointer-events-none absolute inset-0 text-paper/5"></div>
 
           <header class={`relative flex flex-col gap-4 border-b-3 border-paper p-6 md:border-r-3 md:border-b-0 ${i % 2 ? 'md:order-2 md:border-r-0 md:border-l-3' : ''}`}>

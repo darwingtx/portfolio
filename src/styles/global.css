@@ -2,8 +2,12 @@
 
 /* Paleta inspirada en el multiverso arácnido: noche violeta, magenta, cian, amarillo y rojo */
 @theme {
-  --color-ink: #0b0614;
-  --color-night: #160b2e;
+  /* Fondo: negro tinta, azul noche, cian oscuro, carmesí y rojo vivo */
+  --color-ink: #0b0b0b;
+  --color-night: #0e3345;
+  --color-steel: #0077a8;
+  --color-crimson: #8b0016;
+  --color-blood: #ed1c24;
   --color-pink: #ff2e88;
   --color-cyan: #00e5ff;
   --color-violet: #7b2cff;
@@ -21,10 +25,25 @@
   html { scroll-behavior: smooth; }
   body {
     @apply bg-ink text-paper font-sans antialiased;
+    /* Negro dominante: viñeta de tinta en los bordes y luces de color pequeñas */
     background-image:
-      radial-gradient(circle at 15% 10%, color-mix(in srgb, var(--color-violet) 35%, transparent), transparent 45%),
-      radial-gradient(circle at 85% 60%, color-mix(in srgb, var(--color-pink) 22%, transparent), transparent 40%);
+      radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--color-ink) 85%, transparent) 100%),
+      radial-gradient(circle at 10% 6%, color-mix(in srgb, var(--color-steel) 40%, transparent), transparent 30%),
+      radial-gradient(circle at 92% 50%, color-mix(in srgb, var(--color-crimson) 65%, transparent), transparent 32%),
+      radial-gradient(circle at 15% 98%, color-mix(in srgb, var(--color-blood) 22%, transparent), transparent 28%),
+      linear-gradient(170deg, var(--color-ink), color-mix(in srgb, var(--color-night) 30%, var(--color-ink)) 50%, var(--color-ink));
     background-attachment: fixed;
+  }
+  /* Trama de puntos negros encima de las luces, como impresión de cómic */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: radial-gradient(var(--color-ink) 0.9px, transparent 1.2px);
+    background-size: 9px 9px;
+    opacity: 0.35;
   }
   ::selection { background: var(--color-pink); color: var(--color-ink); }
 }

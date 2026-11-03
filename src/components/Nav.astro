@@ -6,14 +6,16 @@ const other = getLang(Astro.currentLocale) === 'es' ? '/en/' : '/';
 ---
 <nav class="fixed inset-x-0 top-0 z-50 border-b-2 border-paper/10 bg-ink/70 backdrop-blur">
   <div class="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3">
-    <a href="#home" class="font-display text-2xl tracking-wider text-pink">DC<span class="text-cyan">.</span></a>
+    <a href="#home" aria-label="Darwin Castaño" class="group">
+      <img src="/logo.webp" alt="" width="40" height="40" class="size-10 rounded-md border-2 border-paper/80 transition-transform group-hover:-rotate-6 group-hover:scale-110" />
+    </a>
     <ul class="hidden gap-6 font-label text-sm md:flex">
       {ids.map((id, i) => (
         <li><a href={`#${id}`} class="transition-colors hover:text-yellow">{ui.nav[i]}</a></li>
       ))}
     </ul>
     <div class="flex items-center gap-3">
-      <a href={other} hreflang={other === '/' ? 'es' : 'en'} title={ui.switchTitle} class="border-2 border-cyan px-2 py-0.5 font-label text-sm tracking-wider text-cyan transition-colors hover:bg-cyan hover:text-ink">
+      <a href={other} hreflang={other === '/' ? 'es' : 'en'} title={ui.switchTitle} aria-label={ui.switchTitle} class="text-3xl leading-none transition-transform hover:scale-125">
         {ui.switchLabel}
       </a>
       <a href="#contact" class="bg-pink px-3 py-1 font-display text-lg tracking-wide text-ink md:hidden">{ui.talk}</a>
