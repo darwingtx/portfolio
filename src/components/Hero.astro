@@ -1,5 +1,6 @@
 ---
 import SpiderWeb from './SpiderWeb.astro';
+import BrandIcon from './BrandIcon.astro';
 import { getContent } from '../data/profile';
 const { profile, ui } = getContent(Astro.currentLocale);
 ---
@@ -14,7 +15,7 @@ const { profile, ui } = getContent(Astro.currentLocale);
       <div class="name-tag relative z-20 inline-block w-full max-w-md -rotate-3 rounded-2xl bg-red pt-2 pb-5 shadow-[10px_10px_0_var(--color-ink)]">
         <p class="text-center leading-none font-sans font-bold text-white">
           <span class="block text-5xl tracking-tight md:text-6xl">{ui.hello}</span>
-          <span class="block text-lg md:text-xl">{ui.myNameIs}</span>
+          <span class="block text-xl">{ui.myNameIs}</span>
         </p>
         <h1 class="relative mt-3 w-full max-w-md overflow-hidden bg-white px-4 py-5 text-center font-hand text-5xl leading-none text-ink md:overflow-visible md:text-6xl" aria-label={profile.name}>
           <span aria-hidden="true">
@@ -34,8 +35,11 @@ const { profile, ui } = getContent(Astro.currentLocale);
         <a href="#projects" class="comic-panel bg-pink px-6 py-3 font-display text-xl tracking-wide text-ink transition-transform hover:-translate-y-1">
           {ui.seeProjects}
         </a>
-        <a href={profile.github} target="_blank" rel="noopener" class="border-3 border-cyan px-6 py-3 font-display text-xl tracking-wide text-cyan transition-colors hover:bg-cyan hover:text-ink">
-          GitHub
+        <a href={profile.github} target="_blank" rel="noopener" class="flex items-center gap-2 border-3 border-cyan px-6 py-3 font-display text-xl tracking-wide text-cyan transition-colors hover:bg-cyan hover:text-ink">
+          <BrandIcon name="github" class="size-6" />GitHub
+        </a>
+        <a href="/cv-darwin-castano.pdf" target="_blank" rel="noopener" class="border-3 border-yellow px-6 py-3 font-display text-xl tracking-wide text-yellow transition-colors hover:bg-yellow hover:text-ink">
+          {ui.cv}
         </a>
       </div>
     </div>
@@ -50,7 +54,7 @@ const { profile, ui } = getContent(Astro.currentLocale);
 
   <!-- Indicador de scroll: pista sutil, oculto en móvil para no estorbar -->
   <a href="#about" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-label text-xs tracking-[0.35em] text-paper/50 uppercase transition-colors hover:text-yellow sm:flex">
-    SCROLL
+    {ui.scroll}
     <span aria-hidden="true" class="scroll-hint text-2xl leading-none tracking-normal">↓</span>
   </a>
 </section>

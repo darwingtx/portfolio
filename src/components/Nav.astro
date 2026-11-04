@@ -18,7 +18,7 @@ const other = getLang(Astro.currentLocale) === 'es' ? '/en/' : '/';
       <a href={other} hreflang={other === '/' ? 'es' : 'en'} title={ui.switchTitle} aria-label={ui.switchTitle} class="text-3xl leading-none transition-transform hover:scale-125">
         {ui.switchLabel}
       </a>
-      <a href="#contact" class="bg-pink px-3 py-1 font-display text-lg tracking-wide text-ink md:hidden">{ui.talk}</a>
+      <a href="#contact" class="bg-pink px-3 py-1 font-display text-lg tracking-wide text-ink transition-transform hover:-translate-y-0.5">{ui.talk}</a>
     </div>
   </div>
 </nav>

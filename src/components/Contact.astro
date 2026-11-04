@@ -1,5 +1,6 @@
 ---
 import SpiderWeb from './SpiderWeb.astro';
+import BrandIcon from './BrandIcon.astro';
 import { getContent } from '../data/profile';
 const { profile, ui } = getContent(Astro.currentLocale);
 ---
@@ -14,12 +15,13 @@ const { profile, ui } = getContent(Astro.currentLocale);
     <a href={`mailto:${profile.email}`} class="comic-panel mt-10 inline-block bg-yellow px-8 py-4 font-display text-2xl tracking-wide text-ink transition-transform hover:-translate-y-1">
       {profile.email}
     </a>
-    <div class="mt-8 flex justify-center gap-6 font-label">
-      <a href={profile.github} target="_blank" rel="noopener" class="hover:text-pink">GitHub</a>
-      <a href={profile.linkedin} target="_blank" rel="noopener" class="hover:text-cyan">LinkedIn</a>
+    <div class="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 font-label">
+      <a href={profile.github} target="_blank" rel="noopener" class="flex items-center gap-2 transition-colors hover:text-pink"><BrandIcon name="github" />GitHub</a>
+      <a href={profile.linkedin} target="_blank" rel="noopener" class="flex items-center gap-2 transition-colors hover:text-cyan"><BrandIcon name="linkedin" />LinkedIn</a>
+      <a href="/cv-darwin-castano.pdf" target="_blank" rel="noopener" class="transition-colors hover:text-yellow">{ui.cv}</a>
     </div>
   </div>
-  <p class="relative mt-24 text-center font-label text-xs text-paper/40">
+  <footer class="relative mt-24 text-center font-label text-xs text-paper/60">
     © {new Date().getFullYear()} {profile.fullName} · {ui.madeWith}
-  </p>
+  </footer>
 </section>
