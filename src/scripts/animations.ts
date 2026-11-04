@@ -192,6 +192,10 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
         { textShadow: '0px 0 0 #ff2e88, 0px 0 0 #00e5ff', duration: 0.6, ease: 'steps(12)', stagger: 0.12 });
     },
   });
+
+  // Las fuentes llegan después del primer cálculo y cambian la altura de la página: sin
+  // recalcular, los disparadores del final quedan fuera del scroll y Contacto nunca aparece.
+  waitForDisplayFont().then(() => document.fonts.ready).then(() => ScrollTrigger.refresh());
 });
 
 // 6. Nav con sección activa. Mismos ids en ES y EN; sin movimiento, así que corre siempre.
