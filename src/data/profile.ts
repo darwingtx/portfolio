@@ -89,7 +89,7 @@ const es = {
   },
   ui: {
     nav: ['Sobre mí', 'Experiencia', 'Proyectos', 'Skills', 'Habilidades blandas', 'Contacto'],
-    talk: 'Hablemos',
+    talk: 'Hagámoslo real',
     hello: 'Hola',
     myNameIs: 'mi nombre es',
     seeProjects: 'Ver proyectos',
@@ -221,7 +221,7 @@ const en: typeof es = {
   },
   ui: {
     nav: ['About', 'Experience', 'Projects', 'Skills', 'Soft skills', 'Contact'],
-    talk: "Let's talk",
+    talk: "Let's make it real",
     hello: 'Hello',
     myNameIs: 'my name is',
     seeProjects: 'See projects',
