@@ -145,7 +145,7 @@ mm.add('(prefers-reduced-motion: no-preference)', () => {
     .from('.plate-pink', { x: 10, y: 10, duration: 0.7, ease: 'power4.out' }, '<')
     // El cargo se pinta como un trazo de rotulador
     .from('.hero-role', { clipPath: 'inset(0 100% 0 0)', duration: 0.5, ease: 'steps(10)' }, 1.4)
-    .from('.hero-item', { y: 16, opacity: 0, duration: 0.6, stagger: 0.1 }, 1.6)
+    .from('.hero-item', { y: 16, duration: 0.6, stagger: 0.1 }, 1.6) // sin opacidad: el resumen es el LCP
     .from('.burst', { scale: 0, rotate: -30, duration: 0.3, ease: 'steps(5)' }, 1.2);
   sprayName();
 

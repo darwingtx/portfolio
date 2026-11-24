@@ -13,11 +13,11 @@ const { experience, ui } = getContent(Astro.currentLocale);
     {experience.map((job) => (
       <li class="reveal relative">
         <span class="job-dot absolute top-2 -left-[2.55rem] size-3.5 rotate-45 bg-red"></span>
-        <p class="font-label text-sm text-muted">{job.period} · {job.place}</p>
+        <p class="font-label text-base text-muted">{job.period} · {job.place}</p>
         <h3 class="font-display text-3xl tracking-wide">
           {job.role} <span class="text-red">@ {job.company}</span>
         </h3>
-        <ul class="mt-3 max-w-[70ch] list-[square] space-y-1 pl-5 text-muted marker:text-red">
+        <ul class="mt-3 max-w-[70ch] list-[square] space-y-1.5 pl-5 text-muted marker:text-red">
           {job.points.map((p) => <li>{p}</li>)}
         </ul>
       </li>

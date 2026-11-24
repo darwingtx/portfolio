@@ -29,7 +29,7 @@ const { profile, ui } = getContent(Astro.currentLocale);
       <p class="hero-role mt-5 inline-block -rotate-1 bg-yellow px-3 py-1 font-display text-2xl tracking-wide text-coal md:text-3xl">
         {profile.role}
       </p>
-      <p class="hero-item mt-6 max-w-xl text-lg leading-relaxed text-muted">{profile.summary}</p>
+      <p class="hero-item mt-6 max-w-xl text-xl leading-relaxed font-bold text-muted">{profile.summary}</p>
       <div class="hero-item mt-8 flex flex-wrap items-center gap-3">
         <a href="#projects" class="comic-panel bg-red px-6 py-3 font-display text-xl tracking-wide text-white transition-transform dark:text-coal hover:-translate-y-1">
           {ui.seeProjects}
@@ -47,12 +47,12 @@ const { profile, ui } = getContent(Astro.currentLocale);
       <!-- Desfase de impresión: dos tintas detrás de la foto -->
       <div class="plate-cyan absolute inset-0 translate-x-2.5 translate-y-2.5 bg-cyan"></div>
       <div class="plate-pink absolute inset-0 -translate-x-2.5 -translate-y-2.5 bg-pink"></div>
-      <img src={`${profile.avatar}&s=640`} alt={ui.photoAlt} width="352" height="352" class="hero-photo relative aspect-square w-full border-2 border-ink object-cover grayscale contrast-125" />
+      <img src={profile.avatar} fetchpriority="high" alt={ui.photoAlt} width="352" height="352" class="hero-photo relative aspect-square w-full border-2 border-ink object-cover grayscale contrast-125" />
       <span class="burst absolute -top-6 -right-6 rotate-12 border-2 border-coal bg-yellow px-3 py-1 font-display text-2xl text-coal">DEPLOY!</span>
     </div>
   </div>
 
-  <a href="#about" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-label text-xs tracking-[0.35em] text-muted uppercase transition-colors hover:text-red sm:flex">
+  <a href="#about" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-1 font-label text-sm tracking-[0.35em] text-muted uppercase transition-colors hover:text-red sm:flex">
     {ui.scroll}
     <span aria-hidden="true" class="scroll-hint text-2xl leading-none tracking-normal">↓</span>
   </a>

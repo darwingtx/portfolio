@@ -1,16 +1,39 @@
 ---
+// Fuentes servidas desde el propio sitio: sin conexiones a Google y sin saltos al cargar.
+import '@fontsource/bangers/latin-400.css';
+import '@fontsource/comic-neue/latin-400.css';
+import '@fontsource/comic-neue/latin-700.css';
+import bangersUrl from '@fontsource/bangers/files/bangers-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import { getContent, getLang } from '../data/profile';
 
 const lang = getLang(Astro.currentLocale);
 const { meta, profile, ui } = getContent(lang);
 const title = meta.title;
-const description = profile.summary;
+const description = meta.description;
 const site = Astro.site ?? Astro.url;
 const canonical = Astro.url.href;
 const ogImage = new URL('/og.png', site).href;
-const fontStylesheet =
-  'https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&display=swap';
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ProfilePage',
+  url: canonical,
+  inLanguage: lang,
+  mainEntity: {
+    '@type': 'Person',
+    name: profile.name,
+    alternateName: profile.fullName,
+    jobTitle: profile.role,
+    image: new URL(profile.avatar, site).href,
+    email: `mailto:${profile.email}`,
+    address: { '@type': 'PostalAddress', addressLocality: 'Medellín', addressCountry: 'CO' },
+    worksFor: { '@type': 'Organization', name: 'Calenardhon' },
+    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Politécnico Colombiano Jaime Isaza Cadavid' },
+    knowsAbout: profile.interests,
+    knowsLanguage: ['es', 'en'],
+    sameAs: [profile.github, profile.linkedin],
+  },
+};
 ---
 <!doctype html>
 <html lang={lang}>
@@ -36,6 +59,7 @@ const fontStylesheet =
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:locale" content={meta.locale} />
+    <meta property="og:locale:alternate" content={lang === 'es' ? 'en_US' : 'es_CO'} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -45,15 +69,13 @@ const fontStylesheet =
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
 
+    <meta name="theme-color" content="#f8f5ef" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0e0e13" media="(prefers-color-scheme: dark)" />
+    <!-- Datos estructurados: Google entiende quién es la persona del portafolio -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
     <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- media="print" + onload: la hoja de fuentes no bloquea el primer render -->
-    <link href={fontStylesheet} rel="stylesheet" media="print" onload="this.media='all'" />
-    <noscript>
-      <link href={fontStylesheet} rel="stylesheet" />
-    </noscript>
+    <link rel="preload" as="font" type="font/woff2" crossorigin href={bangersUrl} />
   </head>
   <body class="overflow-x-hidden">
     <a href="#main" class="sr-only bg-yellow px-4 py-2 font-display text-xl tracking-wide text-coal focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]">{ui.skip}</a>

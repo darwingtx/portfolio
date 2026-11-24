@@ -11,7 +11,7 @@ const { softSkills, ui } = getContent(Astro.currentLocale);
     {softSkills.map(({ title, evidence }) => (
       <div class="reveal">
         <h3 class="font-display text-2xl tracking-wide"><span aria-hidden="true" class="mr-2 inline-block size-2.5 rotate-45 bg-red align-middle"></span>{title}</h3>
-        <p class="mt-2 leading-relaxed text-muted">{evidence}</p>
+        <p class="mt-2 text-muted">{evidence}</p>
       </div>
     ))}
   </div>

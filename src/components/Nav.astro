@@ -9,7 +9,7 @@ const other = getLang(Astro.currentLocale) === 'es' ? '/en/' : '/';
     <a href="#home" aria-label="Darwin Castaño" class="group">
       <img src="/logo.webp" alt="" width="40" height="40" class="size-10 rounded-md border-2 border-ink transition-transform group-hover:-rotate-6" />
     </a>
-    <ul class="hidden gap-6 font-label text-sm md:flex">
+    <ul class="hidden gap-6 font-label text-base whitespace-nowrap lg:flex">
       {ids.map((id, i) => (
         <li><a href={`#${id}`} data-nav-link class="transition-colors hover:text-red">{ui.nav[i]}</a></li>
       ))}

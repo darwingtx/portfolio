@@ -8,7 +8,7 @@ const { profile, ui } = getContent(Astro.currentLocale);
   <SpiderWeb class="contact-web absolute top-1/2 left-1/2 w-[56rem] max-w-none -translate-x-1/2 -translate-y-1/2 text-ink/30" spokes={16} rings={9} perfect />
   <div class="contact-body relative mx-auto max-w-3xl text-center">
     <h2 class="section-title misprint font-display text-6xl tracking-wide md:text-8xl">{ui.talk}</h2>
-    <p class="mx-auto mt-4 max-w-xl text-lg text-muted">{ui.contactText}</p>
+    <p class="mx-auto mt-4 max-w-xl text-xl font-bold text-muted">{ui.contactText}</p>
     <a href={`mailto:${profile.email}`} class="comic-panel mt-10 inline-block bg-yellow px-8 py-4 font-display text-2xl tracking-wide text-coal transition-transform hover:-translate-y-1">
       {profile.email}
     </a>
@@ -18,7 +18,7 @@ const { profile, ui } = getContent(Astro.currentLocale);
       <a href="/cv-darwin-castano.pdf" target="_blank" rel="noopener" class="transition-colors hover:text-red">{ui.cv}</a>
     </div>
   </div>
-  <footer class="relative mt-28 text-center font-label text-xs text-muted">
+  <footer class="relative mt-28 text-center font-label text-sm text-muted">
     {ui.madeWith}
   </footer>
 </section>

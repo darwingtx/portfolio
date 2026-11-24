@@ -8,7 +8,7 @@
 @theme {
   --color-paper: #f8f5ef;
   --color-ink: #111111;
-  --color-muted: #5c5750; /* texto secundario, 6.6:1 sobre paper */
+  --color-muted: #45413c; /* texto secundario, ~9.5:1 sobre paper */
   --color-line: #ddd6ca;
   --color-card: #ffffff; /* superficies: tarjetas y chips */
   --color-coal: #111111; /* tinta fija para texto sobre amarillo, cian, rosa o blanco */
@@ -30,7 +30,7 @@
   color-scheme: dark;
   --color-paper: #0e0e13;
   --color-ink: #f3efe6;
-  --color-muted: #a59f96; /* 7.3:1 */
+  --color-muted: #c4beb4; /* ~10:1 */
   --color-line: #2c2a33;
   --color-card: #17171e;
   --color-red: #ff4757; /* 5.3:1 sobre card */
@@ -42,7 +42,7 @@
 
 @layer base {
   html { scroll-behavior: smooth; scrollbar-color: var(--color-ink) var(--color-paper); }
-  body { @apply bg-paper text-ink font-sans antialiased; }
+  body { @apply bg-paper text-ink font-sans antialiased; font-size: 1.125rem; line-height: 1.7; }
   ::selection { background: var(--color-yellow); color: var(--color-coal); }
   :focus-visible { outline: 3px solid var(--color-red); outline-offset: 4px; }
   a { text-underline-offset: 4px; }

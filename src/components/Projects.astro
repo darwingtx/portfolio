@@ -24,17 +24,17 @@ const accents = {
           <span aria-hidden="true" class={`sfx sfx-text pointer-events-none absolute -top-6 right-6 z-10 font-display text-4xl tracking-wide ${i % 2 ? '-rotate-6' : 'rotate-6'} ${a.text}`}>{p.sfx}</span>
 
           <header class="flex min-w-0 flex-col gap-4 border-b-2 border-ink p-6 md:border-r-2 md:border-b-0">
-            <div class="flex items-start justify-between gap-4 font-label text-xs tracking-wider text-muted uppercase">
+            <div class="flex items-start justify-between gap-4 font-label text-sm tracking-wider text-muted uppercase">
               <span>{p.tag}</span>
               <span>{p.year.endsWith('–') ? `${p.year} ${ui.present}` : p.year}</span>
             </div>
             <h3 class="font-display text-4xl leading-none tracking-wide hyphens-auto break-words sm:text-5xl">{p.title}</h3>
             <ul class="flex flex-wrap gap-2">
-              {p.stack.map((s) => <li class="border border-line bg-paper px-2 py-0.5 font-label text-sm">{s}</li>)}
+              {p.stack.map((s) => <li class="border border-line bg-paper px-2 py-0.5 font-label text-base">{s}</li>)}
             </ul>
             <div>
               <p class="inline-block -rotate-1 bg-yellow px-2 py-0.5 font-display text-xl tracking-wide text-coal">{ui.problem}</p>
-              <p class="mt-3 text-lg leading-relaxed">{p.problem}</p>
+              <p class="mt-3 text-xl leading-relaxed font-bold">{p.problem}</p>
             </div>
             {p.links.length > 0 && (
               <div class="mt-auto flex flex-wrap gap-3 pt-2">
@@ -49,7 +49,7 @@ const accents = {
 
           <div class="p-6">
             <p class="inline-block rotate-1 bg-ink px-2 py-0.5 font-display text-xl tracking-wide text-paper">{ui.solution}</p>
-            <ul class="mt-3 list-[square] space-y-2 pl-5 text-muted marker:text-red">
+            <ul class="mt-3 list-[square] space-y-2.5 pl-5 text-muted marker:text-red">
               {p.solution.map((s) => <li>{s}</li>)}
             </ul>
           </div>

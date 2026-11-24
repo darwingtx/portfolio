@@ -9,7 +9,7 @@ const me = {
   email: 'darwingtx@gmail.com',
   github: 'https://github.com/darwingtx',
   linkedin: 'https://www.linkedin.com/in/darwincastao',
-  avatar: 'https://avatars.githubusercontent.com/u/79672629?v=4',
+  avatar: '/avatar.webp',
 };
 
 // Datos que no cambian con el idioma, en el mismo orden que los textos de cada proyecto.
@@ -67,16 +67,25 @@ const skillItems = [
 ];
 
 const es = {
-  meta: { title: `${me.name} — Backend Developer · AI Engineer`, locale: 'es_CO' },
+  meta: {
+    title: `${me.name} — Backend Developer · Infraestructura e IA`,
+    description: 'Darwin Castaño, backend developer en Medellín. TypeScript, Java y Python; infraestructura, automatización y agentes de IA en producción.',
+    locale: 'es_CO',
+  },
   profile: {
     ...me,
-    role: 'Backend Developer · AI Engineer en formación',
+    role: 'Backend Developer · Infraestructura e IA',
     location: 'Medellín, Colombia',
     summary:
-      'Backend developer en Calenardhon (TypeScript, Java, Python), donde construyo automatizaciones con agentes de IA. Investigo cómo correr LLMs open-source en hardware convencional.',
-    about:
-      'Estoy en último año de Ingeniería Informática en el Politécnico Colombiano Jaime Isaza Cadavid y quiero crecer como <strong class="text-red">AI Engineer</strong>. En el semillero <strong>SIIC</strong> investigo cómo repartir modelos grandes entre PCs comunes para correrlos donde antes no cabían.',
-    interests: ['Inferencia distribuida', 'RAG', 'MLOps', 'Agentes de IA'],
+      'Backend developer en Calenardhon (TypeScript, Java, Python), donde automatizo procesos con agentes de IA. Me enfoco en la infraestructura que hace funcionar la IA: servidores, automatización y modelos en producción.',
+    about: [
+      'Soy estudiante de último año de Ingeniería Informática en el Politécnico Colombiano Jaime Isaza Cadavid, en Medellín. Me apasiona aprender, sobre todo entender cómo funcionan las cosas por dentro.',
+      'Tengo una mezcla de gustos. Por un lado, la <strong>infraestructura</strong>: configurar y mantener servidores, automatizar despliegues y construir backends sólidos, con un ojo puesto en la <strong>ciberseguridad</strong>. Por otro, implementar <strong>IA</strong> y construir cosas con ella. Uso Linux a diario y tengo un homelab propio donde pongo todo eso en práctica.',
+      'Mi enfoque está donde se cruzan: <strong class="text-red">la infraestructura que hace funcionar la IA</strong>. Desplegar, automatizar y operar modelos y agentes en servidores reales, de forma eficiente, segura y a bajo costo.',
+      'En el semillero <strong>SIIC</strong> investigo cómo repartir y usar <strong>modelos grandes de lenguaje (LLMs)</strong> en computadores de uso común, de forma eficiente y a bajo costo, para que una universidad pueda correrlos sin GPUs costosas.',
+    ],
+    interests: ['Infraestructura', 'Servidores Linux', 'DevOps', 'Agentes de IA', 'LLMs en hardware común', 'Ciberseguridad'],
+    languages: { group: 'Idiomas', items: ['Español · nativo', 'Inglés · B1'] },
   },
   ui: {
     nav: ['Sobre mí', 'Experiencia', 'Proyectos', 'Skills', 'Habilidades blandas', 'Contacto'],
@@ -190,16 +199,25 @@ const es = {
 };
 
 const en: typeof es = {
-  meta: { title: `${me.name} — Backend Developer · AI Engineer`, locale: 'en_US' },
+  meta: {
+    title: `${me.name} — Backend Developer · Infrastructure & AI`,
+    description: 'Darwin Castaño, backend developer in Medellín, Colombia. TypeScript, Java, Python; infrastructure, automation and AI agents in production.',
+    locale: 'en_US',
+  },
   profile: {
     ...me,
-    role: 'Backend Developer · Aspiring AI Engineer',
+    role: 'Backend Developer · Infrastructure & AI',
     location: 'Medellín, Colombia',
     summary:
-      'Backend developer at Calenardhon (TypeScript, Java, Python), building automations with AI agents. I research how to run open-source LLMs on commodity hardware.',
-    about:
-      'I am a final-year Computer Engineering student at Politécnico Colombiano Jaime Isaza Cadavid, growing toward <strong class="text-red">AI Engineer</strong>. At the <strong>SIIC</strong> research group I study how to split large models across regular PCs so they run where they did not fit before.',
-    interests: ['Distributed inference', 'RAG', 'MLOps', 'AI agents'],
+      'Backend developer at Calenardhon (TypeScript, Java, Python), automating processes with AI agents. I focus on the infrastructure that makes AI work: servers, automation and models in production.',
+    about: [
+      'I am a final-year Computer Engineering student at Politécnico Colombiano Jaime Isaza Cadavid, in Medellín. I am passionate about learning, especially about understanding how things work under the hood.',
+      'My interests are a mix. On one side, <strong>infrastructure</strong>: configuring and running servers, automating deployments and building solid backends, with an eye on <strong>cybersecurity</strong>. On the other, implementing <strong>AI</strong> and building things with it. I use Linux every day and run my own homelab, where I put all of that into practice.',
+      'My focus is where they meet: <strong class="text-red">the infrastructure that makes AI work</strong>. Deploying, automating and operating models and agents on real servers, efficiently, securely and at low cost.',
+      'At the <strong>SIIC</strong> research group I study how to split and run <strong>large language models (LLMs)</strong> on everyday computers, efficiently and at low cost, so a university can run them without expensive GPUs.',
+    ],
+    interests: ['Infrastructure', 'Linux servers', 'DevOps', 'AI agents', 'LLMs on commodity hardware', 'Cybersecurity'],
+    languages: { group: 'Languages', items: ['Spanish · native', 'English · B1'] },
   },
   ui: {
     nav: ['About', 'Experience', 'Projects', 'Skills', 'Soft skills', 'Contact'],
@@ -319,7 +337,10 @@ export function getContent(locale?: string) {
   return {
     ...c,
     projects: c.projects.map((p, i) => ({ ...projectsBase[i], ...p })),
-    skills: c.skillGroups.map((g, i) => [g, skillItems[i]] as const),
+    skills: [
+      ...c.skillGroups.map((g, i) => [g, skillItems[i]] as const),
+      [c.profile.languages.group, c.profile.languages.items] as const,
+    ],
   };
 }
 
