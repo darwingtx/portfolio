@@ -17,6 +17,11 @@ const fontStylesheet =
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Antes de pintar: tema guardado o el del sistema, para que no parpadee -->
+    <script is:inline>
+      document.documentElement.dataset.theme =
+        localStorage.getItem('theme') ?? (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    </script>
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -51,7 +56,7 @@ const fontStylesheet =
     </noscript>
   </head>
   <body class="overflow-x-hidden">
-    <a href="#main" class="sr-only bg-yellow px-4 py-2 font-display text-xl tracking-wide text-ink focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]">{ui.skip}</a>
+    <a href="#main" class="sr-only bg-yellow px-4 py-2 font-display text-xl tracking-wide text-coal focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]">{ui.skip}</a>
     <slot />
     <script>
       import '../scripts/animations';

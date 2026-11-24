@@ -22,8 +22,8 @@ const f = (n: number) => n.toFixed(1);
 const pt = (a: number, r: number) => [c + Math.cos(a) * r, c + Math.sin(a) * r];
 
 // Grosor relativo al tamaño: las telarañas pequeñas necesitan trazos más finos.
-const spokeWidth = size < 400 ? 1.8 : 2.2;
-const ringWidth = size < 400 ? 1.4 : 1.8;
+const spokeWidth = size < 400 ? 2.2 : 2.8;
+const ringWidth = size < 400 ? 1.8 : 2.2;
 
 const angles = Array.from({ length: spokes }, (_, i) => i * step + J * rand(-0.35, 0.35) * step);
 const lengths = angles.map(() => (perfect ? R : R * rand(0.7, 1)));

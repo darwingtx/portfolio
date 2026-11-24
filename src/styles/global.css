@@ -1,60 +1,53 @@
 @import 'tailwindcss';
 
-/* Paleta inspirada en el multiverso arácnido: noche violeta, magenta, cian, amarillo y rojo */
+/* `dark:` responde al tema elegido (data-theme en <html>), no solo al del sistema */
+@custom-variant dark (&:where([data-theme='dark'], [data-theme='dark'] *));
+
+/* Tema claro del multiverso arácnido: papel de cómic, tinta negra y rojo araña.
+   Rosa y cian solo aparecen como "impresión fuera de registro"; amarillo, en etiquetas. */
 @theme {
-  /* Fondo: negro tinta, azul noche, cian oscuro, carmesí y rojo vivo */
-  --color-ink: #0b0b0b;
-  --color-night: #0e3345;
-  --color-steel: #0077a8;
-  --color-crimson: #8b0016;
-  --color-blood: #ed1c24;
+  --color-paper: #f8f5ef;
+  --color-ink: #111111;
+  --color-muted: #5c5750; /* texto secundario, 6.6:1 sobre paper */
+  --color-line: #ddd6ca;
+  --color-card: #ffffff; /* superficies: tarjetas y chips */
+  --color-coal: #111111; /* tinta fija para texto sobre amarillo, cian, rosa o blanco */
+  --color-red: #d0101a; /* 5.1:1 sobre paper: válido también para texto */
   --color-pink: #ff2e88;
-  --color-cyan: #00e5ff;
+  --color-cyan: #00d1ea;
   --color-violet: #7b2cff;
-  --color-yellow: #ffe600;
-  --color-red: #ff1f3d;
-  --color-paper: #f6f0e6;
-  /* Versiones claras de rosa y violeta para TEXTO sobre fondos oscuros (AA ≥4.5:1 también sobre night) */
-  --color-rose: #ff6aa8;
-  --color-lilac: #b18cff;
+  --color-yellow: #ffe14d;
 
   --font-display: 'Bangers', system-ui, sans-serif;
   --font-sans: 'Comic Neue', system-ui, sans-serif;
-  /* Solo dos familias: Bangers cubre display, etiquetas y el gesto manuscrito */
   --font-label: 'Bangers', Impact, sans-serif;
   --font-hand: 'Bangers', Impact, sans-serif;
 }
 
-@layer base {
-  html { scroll-behavior: smooth; }
-  body {
-    @apply bg-ink text-paper font-sans antialiased;
-    /* Negro dominante: viñeta de tinta en los bordes y luces de color pequeñas */
-    background-image:
-      radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--color-ink) 85%, transparent) 100%),
-      radial-gradient(circle at 10% 6%, color-mix(in srgb, var(--color-steel) 40%, transparent), transparent 30%),
-      radial-gradient(circle at 92% 50%, color-mix(in srgb, var(--color-crimson) 65%, transparent), transparent 32%),
-      radial-gradient(circle at 15% 98%, color-mix(in srgb, var(--color-blood) 22%, transparent), transparent 28%),
-      linear-gradient(170deg, var(--color-ink), color-mix(in srgb, var(--color-night) 30%, var(--color-ink)) 50%, var(--color-ink));
-    background-attachment: fixed;
-  }
-  /* Trama de puntos negros encima de las luces, como impresión de cómic */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    pointer-events: none;
-    background-image: radial-gradient(var(--color-ink) 0.9px, transparent 1.2px);
-    background-size: 9px 9px;
-    opacity: 0.35;
-  }
-  ::selection { background: var(--color-pink); color: var(--color-ink); }
-  :focus-visible { outline: 3px solid var(--color-yellow); outline-offset: 4px; }
+/* Tema oscuro: noche de Brooklyn, tinta crema y rojo más encendido. Mismos nombres de token,
+   así todas las utilidades cambian solas. */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-paper: #0e0e13;
+  --color-ink: #f3efe6;
+  --color-muted: #a59f96; /* 7.3:1 */
+  --color-line: #2c2a33;
+  --color-card: #17171e;
+  --color-red: #ff4757; /* 5.3:1 sobre card */
+}
 
-  /* Bangers sustituye a Anton en las etiquetas: necesita más aire entre letras. */
+/* Cambio de tema: el nuevo se revela en círculo desde el botón (ver Nav.astro) */
+::view-transition-old(root),
+::view-transition-new(root) { animation: none; mix-blend-mode: normal; }
+
+@layer base {
+  html { scroll-behavior: smooth; scrollbar-color: var(--color-ink) var(--color-paper); }
+  body { @apply bg-paper text-ink font-sans antialiased; }
+  ::selection { background: var(--color-yellow); color: var(--color-coal); }
+  :focus-visible { outline: 3px solid var(--color-red); outline-offset: 4px; }
+  a { text-underline-offset: 4px; }
+
   .font-label { letter-spacing: 0.08em; }
-  /* ...y a Permanent Marker en el nombre: una inclinación leve conserva el gesto manuscrito. */
   .font-hand { letter-spacing: 0.03em; rotate: -1.2deg; }
 }
 
@@ -63,41 +56,25 @@
   background-size: 9px 9px;
 }
 
-/* Desfase cromático tipo impresión fuera de registro */
-@utility glitch {
-  position: relative;
-  text-shadow: 3px 3px 0 var(--color-pink), -3px -2px 0 var(--color-cyan);
-  &::before,
-  &::after {
-    content: attr(data-text);
-    /* Texto alternativo vacío: el lector de pantalla no repite el título tres veces */
-    content: attr(data-text) / '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-  }
-  &::before { color: var(--color-cyan); clip-path: inset(0 0 60% 0); animation: glitch-slice 3.2s infinite steps(1); }
-  &::after  { color: var(--color-pink); clip-path: inset(55% 0 0 0); animation: glitch-slice 2.6s infinite steps(1) reverse; }
+/* Impresión fuera de registro, fija: el sello del multiverso sin parpadeos */
+@utility misprint {
+  text-shadow: 2px 2px 0 color-mix(in srgb, var(--color-pink) 70%, transparent), -2px -1px 0 color-mix(in srgb, var(--color-cyan) 70%, transparent);
 }
 
+/* Viñeta de cómic: borde de tinta y sombra plana */
 @utility comic-panel {
-  border: 3px solid var(--color-paper);
-  box-shadow: 8px 8px 0 var(--color-pink), 8px 8px 0 3px var(--color-ink);
+  border: 2px solid var(--color-ink);
+  box-shadow: 6px 6px 0 var(--color-ink);
+  /* Al pulsar, la viñeta se "imprime" contra la página */
+  &:active { translate: 4px 4px !important; box-shadow: 2px 2px 0 var(--color-ink); }
 }
 
-@utility spray {
-  filter: drop-shadow(0 0 18px color-mix(in srgb, var(--color-pink) 70%, transparent));
+/* Rotulado de onomatopeya: relleno de color con contorno de tinta */
+@utility sfx-text {
+  -webkit-text-stroke: 1.5px var(--color-ink);
+  paint-order: stroke fill;
 }
 
-/* Las capas solo aparecen durante el "golpe" del glitch */
-@keyframes glitch-slice {
-  0%, 88%, 100% { transform: translate(0); opacity: 0; }
-  90% { transform: translate(-4px, 1px); opacity: 1; }
-  93% { transform: translate(4px, -1px); opacity: 1; }
-  96% { transform: translate(-2px, 2px); opacity: 1; }
-}
-
-/* Indicador de scroll del hero: bob de 8 px, infinito y sutil */
 @keyframes scroll-bob {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(8px); }
@@ -106,6 +83,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .glitch::before, .glitch::after { animation: none; opacity: 0; }
   .scroll-hint { animation: none; }
 }
