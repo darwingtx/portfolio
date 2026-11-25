@@ -9,7 +9,7 @@ const me = {
   email: 'darwingtx@gmail.com',
   github: 'https://github.com/darwingtx',
   linkedin: 'https://www.linkedin.com/in/darwincastao',
-  avatar: '/avatar.webp',
+  avatar: '/avatar-2026.webp',
 };
 
 // Datos que no cambian con el idioma, en el mismo orden que los textos de cada proyecto.
